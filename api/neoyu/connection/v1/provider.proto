@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package neoyu.connection.v1;
+
+import "buf/validate/validate.proto";
+
+enum ProviderType {
+  PROVIDER_TYPE_CUSTOM_UNSPECIFIED = 0;
+  PROVIDER_TYPE_OPENROUTER = 1;
+}
+
+message Provider {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string name = 2;
+  ProviderType type = 3;
+  string base_url = 4 [(buf.validate.field).string.uri = true];
+  string api_key = 5;
+}
+
+service ProviderService {
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
+  rpc GetProvider(GetProviderRequest) returns (GetProviderResponse);
+  rpc SetProvider(SetProviderRequest) returns (SetProviderResponse);
+  rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse);
+}
+
+message ListProvidersRequest {}
+
+message ListProvidersResponse {
+  repeated Provider providers = 1;
+}
+
+message GetProviderRequest {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message GetProviderResponse {
+  Provider provider = 1;
+}
+
+message SetProviderRequest {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  Provider provider = 2;
+}
+
+message SetProviderResponse {}
+
+message DeleteProviderRequest {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message DeleteProviderResponse {}

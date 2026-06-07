@@ -5,6 +5,9 @@
 *.so
 *.dylib
 
+# Built assets
+cmd/neoyu/dist/
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -20,3 +23,6 @@ go.work.sum
 
 # Taskfile cache
 .task
+
+# Node scripts cache
+node_modules/

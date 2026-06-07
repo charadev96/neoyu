@@ -1,0 +1,85 @@
+version: '3'
+
+tasks:
+  dep:
+    desc: Install dependencies
+    deps: [dep:buf, dep:go, dep:npm]
+
+  dep:buf:
+    internal: true
+    cmds: [buf dep update]
+    sources: [buf.yaml]
+    generates: [buf.lock]
+
+  dep:go:
+    internal: true
+    cmds: [go mod tidy]
+    sources: [go.mod]
+    generates: [go.sum]
+
+  dep:ts:
+    internal: true
+    dir: frontend
+    cmds: [npm install]
+    sources: [package.json]
+    generates: [node_modules/**/*]
+
+  buf:
+    deps: [dep:buf]
+    desc: Generate Protobuf stubs
+    cmds: [buf generate]
+    sources:
+      - buf.yaml
+      - buf.gen.yaml
+      - api/**/*
+    generates:
+      - gen/**/*
+      - frontend/src/gen/**/*
+
+  ts:
+    desc: Compile TypeScript
+    deps: [dep:ts, buf]
+    dir: frontend
+    cmds: [npm exec vue-tsc -- --build]
+    sources:
+      - src/**/*.ts
+      - src/**/*.vue
+      - tsconfig.json
+      - tsconfig.app.json
+      - tsconfig.node.json
+
+  go:
+    desc: Compile Go
+    deps: [dep:go, buf]
+    cmds: [go build ./...]
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+
+  dev:
+    desc: Run with dev tools
+    deps: [buf]
+    dir: frontend
+    cmds: [npm exec vite]
+
+  build:
+    deps: [ts]
+    desc: Build dist assets
+    dir: frontend
+    cmds: [npm exec vite -- build]
+    sources: ["**/*"]
+    status: [test -d ../cmd/neoyu/dist]
+
+  run:
+    desc: Run app
+    deps: [build]
+    cmds: [go run ./cmd/neoyu]
+
+  fmt:
+    desc: Format source files
+    cmds: 
+      - go fmt ./...
+      - buf format -w
+      - cd frontend && npm exec prettier -- -w --experimental-cli .
+      - cd frontend && npm exec stylelint -- --formatter verbose --fix ./**/*.vue ./**/*.css

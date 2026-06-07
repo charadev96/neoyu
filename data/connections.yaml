@@ -1,0 +1,11 @@
+providers:
+  - id: 90487723-5edb-4706-9778-c883a782e042
+    name: OpenRouter
+    #type: openrouter
+    base_url: https://openrouter.ai/api/v1/
+    api_key: KEY
+  - id: 90487723-5edb-4706-9778-c883a782e041
+    name: Ollama
+    #type: ollama
+    base_url: https://openrouter.ai/api/v1/
+    api_key: KEY2
