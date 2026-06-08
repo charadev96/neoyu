@@ -59,7 +59,15 @@ tasks:
 
   dev:
     desc: Run with dev tools
-    deps: [buf]
+    deps: [buf, dev:go, dev:vite]
+    dir: frontend
+
+  dev:go:
+    internal: true
+    cmds: [go run ./cmd/neoyu]
+
+  dev:vite:
+    internal: true
     dir: frontend
     cmds: [npm exec vite]
 
