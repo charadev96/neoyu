@@ -1,8 +1,10 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sync"
 	"time"
 
@@ -36,6 +38,12 @@ func (s *FileStore[G]) Save(data G) error {
 		return fmt.Errorf("marshal yaml: %w", err)
 	}
 
+	if _, err := os.Stat(s.file); errors.Is(err, os.ErrNotExist) {
+		if err := s.init(); err != nil {
+			return fmt.Errorf("create file: %w", err)
+		}
+	}
+
 	return os.WriteFile(s.file, bytes, perm)
 }
 
@@ -44,7 +52,11 @@ func (s *FileStore[G]) Load() (G, error) {
 	defer s.mu.Unlock()
 
 	info, err := os.Stat(s.file)
-	if err != nil {
+	if errors.Is(err, os.ErrNotExist) {
+		if err := s.init(); err != nil {
+			return *new(G), fmt.Errorf("create file: %w", err)
+		}
+	} else if err != nil {
 		return *new(G), err
 	}
 
@@ -73,4 +85,14 @@ func (s *FileStore[G]) Load() (G, error) {
 	s.lastLoad = info.ModTime()
 
 	return data, nil
+}
+
+func (s *FileStore[G]) init() error {
+	if err := os.MkdirAll(filepath.Dir(s.file), perm); err != nil {
+		return err
+	}
+	if err := os.WriteFile(s.file, nil, perm); err != nil {
+		return err
+	}
+	return nil
 }
