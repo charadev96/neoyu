@@ -46,7 +46,7 @@ func (h *Provider) GetProvider(ctx context.Context, req *v1.GetProviderRequest) 
 }
 
 func (h *Provider) SetProvider(ctx context.Context, req *v1.SetProviderRequest) (*v1.SetProviderResponse, error) {
-	if err := h.svc.Set(uuid.MustParse(req.Id), *req.Provider); err != nil {
+	if err := h.svc.Set(*req.Provider); err != nil {
 		if errors.Is(err, service.ErrNotExist) {
 			return nil, connect.NewError(connect.CodeNotFound, err)
 		}

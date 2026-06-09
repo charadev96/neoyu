@@ -45,13 +45,13 @@ func (s *Provider) Get(id uuid.UUID) (v1.Provider, error) {
 	return data.Providers[i], nil
 }
 
-func (s *Provider) Set(id uuid.UUID, p v1.Provider) error {
+func (s *Provider) Set(p v1.Provider) error {
 	data, err := s.db.Load()
 	if err != nil {
 		return fmt.Errorf("load: %w", err)
 	}
 
-	i := s.index(data.Providers, id)
+	i := s.index(data.Providers, uuid.MustParse(p.Id))
 	if i == -1 {
 		data.Providers = append(data.Providers, p)
 	} else {

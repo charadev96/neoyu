@@ -314,8 +314,7 @@ func (x *GetProviderResponse) GetProvider() *Provider {
 
 type SetProviderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Provider      *Provider              `protobuf:"bytes,2,opt,name=provider,proto3" json:"provider,omitempty"`
+	Provider      *Provider              `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -348,13 +347,6 @@ func (x *SetProviderRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use SetProviderRequest.ProtoReflect.Descriptor instead.
 func (*SetProviderRequest) Descriptor() ([]byte, []int) {
 	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *SetProviderRequest) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
 }
 
 func (x *SetProviderRequest) GetProvider() *Provider {
@@ -497,10 +489,9 @@ const file_neoyu_connection_v1_provider_proto_rawDesc = "" +
 	"\x12GetProviderRequest\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\"P\n" +
 	"\x13GetProviderResponse\x129\n" +
-	"\bprovider\x18\x01 \x01(\v2\x1d.neoyu.connection.v1.ProviderR\bprovider\"i\n" +
-	"\x12SetProviderRequest\x12\x18\n" +
-	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\x129\n" +
-	"\bprovider\x18\x02 \x01(\v2\x1d.neoyu.connection.v1.ProviderR\bprovider\"\x15\n" +
+	"\bprovider\x18\x01 \x01(\v2\x1d.neoyu.connection.v1.ProviderR\bprovider\"O\n" +
+	"\x12SetProviderRequest\x129\n" +
+	"\bprovider\x18\x01 \x01(\v2\x1d.neoyu.connection.v1.ProviderR\bprovider\"\x15\n" +
 	"\x13SetProviderResponse\"1\n" +
 	"\x15DeleteProviderRequest\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\"\x18\n" +

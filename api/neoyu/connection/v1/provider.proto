@@ -39,8 +39,7 @@ message GetProviderResponse {
 }
 
 message SetProviderRequest {
-  string id = 1 [(buf.validate.field).string.uuid = true];
-  Provider provider = 2;
+  Provider provider = 1;
 }
 
 message SetProviderResponse {}
