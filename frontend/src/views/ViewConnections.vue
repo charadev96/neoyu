@@ -6,12 +6,43 @@ import { type Provider } from "@/gen/neoyu/connection/v1/provider_pb"
 import ItemSelector from "@/components/ItemSelector.vue"
 
 const providers = ref<Provider[]>([])
-const selected = ref<Provider>()
+const selected = ref<string | undefined>("")
 
-onMounted(async () => {
+const fetchProviders = async () => {
   const response = await providerClient.listProviders({})
   providers.value = response.providers
-})
+}
+
+const handleCreate = async (name: string) => {
+  await providerClient.setProvider({
+    provider: {
+      id: crypto.randomUUID(),
+      name: name,
+      baseUrl: "http://127.0.0.1:8080/",
+    },
+  })
+  fetchProviders()
+}
+
+const handleSelect = (id: string | undefined) => {
+  selected.value = id
+}
+
+const handleRename = async (id: string, name: string) => {
+  const provider = providers.value.find((p) => p.id === id)
+  if (provider == undefined) {
+    return
+  }
+  await providerClient.setProvider({ provider: { ...provider, name: name } })
+  fetchProviders()
+}
+
+const handleDelete = async (id: string) => {
+  await providerClient.deleteProvider({ id: id })
+  fetchProviders()
+}
+
+onMounted(fetchProviders)
 </script>
 
 <template>
@@ -19,13 +50,15 @@ onMounted(async () => {
     <div class="sidepanel">
       <h2>Connections</h2>
       <ItemSelector
-        @select="(item) => (selected = item)"
         :items="providers"
-        :getKey="(item) => item.name"
+        @create="handleCreate"
+        @select="handleSelect"
+        @rename="handleRename"
+        @delete="handleDelete"
       />
     </div>
-    <div class="content" v-if="selected">
-      <h2>{{ selected.name }}</h2>
+    <div class="content" v-if="selected && providers">
+      <h2>{{ providers.find((p) => p.id === selected).name }}</h2>
     </div>
   </div>
 </template>
