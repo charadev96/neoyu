@@ -8,6 +8,9 @@
 # Built assets
 cmd/neoyu/dist/
 
+# Local app data
+data/
+
 # Test binary, built with `go test -c`
 *.test
 
