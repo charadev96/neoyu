@@ -74,7 +74,7 @@ func (s *Provider) Delete(id uuid.UUID) error {
 	if i == -1 {
 		return ErrNotExist
 	}
-	data.Providers = slices.Delete(data.Providers, i, i)
+	data.Providers = slices.Delete(data.Providers, i, i+1)
 
 	if err := s.db.Save(data); err != nil {
 		return fmt.Errorf("save: %w", err)
