@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"errors"
+	//"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -49,15 +49,12 @@ func NewLogInterceptor(log *zerolog.Logger) connect.UnaryInterceptorFunc {
 
 			res, err := next(ctx, req)
 			if err != nil {
-				var errCon *connect.Error
-				if errors.As(err, &errCon) {
-					log.Error().
-						Str("service", service).
-						Str("method", method).
-						Err(errCon).
-						Msg("request")
-					return res, err
-				}
+				log.Error().
+					Str("service", service).
+					Str("method", method).
+					Err(err).
+					Msg("request")
+				return res, err
 			}
 
 			log.Info().
