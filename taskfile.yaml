@@ -25,7 +25,7 @@ tasks:
     generates: [node_modules/**/*]
 
   buf:
-    deps: [dep:buf]
+    deps: [dep:ts, dep:buf]
     desc: Generate Protobuf stubs
     cmds: [buf generate]
     sources:
