@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import "@/assets/main.css"
+import "@fontsource-variable/space-grotesk/wght.css"
+import "@fontsource-variable/material-symbols-outlined"
+
 import AppSidebar from "@/components/AppSidebar.vue"
 </script>
 
