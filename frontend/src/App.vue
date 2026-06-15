@@ -8,8 +8,8 @@ import AppSidebar from "@/components/AppSidebar.vue"
 
 <template>
   <main>
-    <AppSidebar />
-    <RouterView />
+    <app-sidebar />
+    <router-view />
   </main>
 </template>
 

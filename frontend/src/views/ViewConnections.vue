@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue"
 
 import { providerClient } from "@/client.ts"
 import { type Provider } from "@/gen/neoyu/connection/v1/provider_pb"
-import ItemSelector from "@/components/ItemSelector.vue"
+import KitSelector from "@/components/KitSelector.vue"
 
 const providers = ref<Provider[]>([])
 const selected = ref<string | undefined>("")
@@ -48,8 +48,8 @@ onMounted(fetchProviders)
 <template>
   <div class="view">
     <div class="sidepanel">
-      <h2>Connections</h2>
-      <ItemSelector
+      <h1 class="title">Connections</h1>
+      <kit-selector
         :items="providers"
         @create="handleCreate"
         @select="handleSelect"
@@ -58,39 +58,37 @@ onMounted(fetchProviders)
       />
     </div>
     <div class="content" v-if="selected && providers">
-      <h2>{{ providers.find((p) => p.id === selected).name }}</h2>
+      <h1 class="title">{{ providers.find((p) => p.id === selected).name }}</h1>
     </div>
   </div>
 </template>
 
 <style scoped>
+.title {
+  padding: var(--padding) 0;
+}
+
 .view {
   display: flex;
   width: 100%;
+}
+
+.sidepanel,
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--padding) * 1.5);
+  gap: calc(var(--padding) / 2);
 }
 
 .sidepanel {
   min-width: fit-content;
   flex: 0 1 230px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  padding: 4px 8px;
-
-  border: none;
-  border-right: var(--border-width) solid var(--color-border);
+  border-right: var(--border) solid var(--color-border);
 }
 
 .content {
-  overflow-y: auto;
   flex: 1 1 0%;
-
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  padding: 4px 8px;
 }
 </style>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import KitButton from "@/components/KitButton.vue"
 
 const links = ref([
+  { to: "/", icon: "home" },
   //{ to: "/sessions", icon: "chat_bubble" },
   { to: "/connections", icon: "conversion_path" },
   //{ to: "/knowledge", icon: "book_2" },
@@ -13,20 +15,14 @@ const links = ref([
 
 <template>
   <aside class="sidebar">
-    <RouterLink
-      :to="'/'"
-      :class="{ button: true, selected: '/' === $route.path }"
-    >
-      <span class="material-symbols-outlined">home</span>
-    </RouterLink>
-    <hr />
-    <RouterLink
+    <kit-button
+      class="button"
+      tag="router-link"
       v-for="link in links"
+      :icon="link.icon"
       :to="link.to"
-      :class="{ button: true, selected: link.to === $route.path }"
-    >
-      <span class="material-symbols-outlined">{{ link.icon }}</span>
-    </RouterLink>
+      :selected="link.to === $route.path"
+    />
   </aside>
 </template>
 
@@ -34,17 +30,13 @@ const links = ref([
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--padding);
 
-  height: auto;
-  margin: 0px;
-  padding: 12px;
-  border: none;
-  border-right: var(--border-width) solid var(--color-border);
-  border-radius: 0px;
+  padding: calc(var(--padding) * 1.5);
+  border-right: var(--border) solid var(--color-border);
 }
 
-a .material-symbols-outlined {
-  font-size: 20pt;
+.button * {
+  font-size: 1.6rem;
 }
 </style>
