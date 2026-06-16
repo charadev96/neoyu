@@ -59,6 +59,10 @@ func (s *FileStore[G]) Load() (G, error) {
 		if err := s.init(); err != nil {
 			return *new(G), fmt.Errorf("create file: %w", err)
 		}
+		info, err = os.Stat(s.file)
+		if err != nil {
+			return *new(G), err
+		}
 	} else if err != nil {
 		return *new(G), err
 	}
