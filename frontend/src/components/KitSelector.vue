@@ -27,7 +27,7 @@ const selected = defineModel<Item>()
 const open = ref(false)
 const state = ref<"rename" | "create">()
 
-const editRef = ref<HTMLElement>()
+const editRef = ref()
 const editName = ref("")
 
 const filterRef = ref<HTMLElement>()
@@ -131,7 +131,7 @@ const handleAction = async (item: Item, action: string) => {
       v-if="open || !compact"
       class="items"
       ref="itemsRef"
-      :class="{ compact: open & compact }"
+      :class="{ compact: open && compact }"
     >
       <template v-if="!compact">
         <kit-button icon="add" v-if="state !== 'create'" @click="handleEdit()"
