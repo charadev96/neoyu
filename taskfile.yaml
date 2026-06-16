@@ -89,5 +89,5 @@ tasks:
     cmds: 
       - go fmt ./...
       - buf format -w
-      - cd frontend && npm exec prettier -- -w --experimental-cli .
+      - cd frontend && npm exec prettier -- -w --experimental-cli ./**/*
       - cd frontend && npm exec stylelint -- --formatter verbose --fix ./**/*.vue ./**/*.css
