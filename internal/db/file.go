@@ -12,7 +12,10 @@ import (
 	"github.com/tiendc/go-deepcopy"
 )
 
-const perm = 0644
+const (
+	permFile = 0644
+	permDir  = 0755
+)
 
 type FileStore[G any] struct {
 	file     string
@@ -44,7 +47,7 @@ func (s *FileStore[G]) Save(data G) error {
 		}
 	}
 
-	return os.WriteFile(s.file, bytes, perm)
+	return os.WriteFile(s.file, bytes, permFile)
 }
 
 func (s *FileStore[G]) Load() (G, error) {
@@ -88,10 +91,10 @@ func (s *FileStore[G]) Load() (G, error) {
 }
 
 func (s *FileStore[G]) init() error {
-	if err := os.MkdirAll(filepath.Dir(s.file), perm); err != nil {
+	if err := os.MkdirAll(filepath.Dir(s.file), permDir); err != nil {
 		return err
 	}
-	if err := os.WriteFile(s.file, nil, perm); err != nil {
+	if err := os.WriteFile(s.file, nil, permFile); err != nil {
 		return err
 	}
 	return nil
