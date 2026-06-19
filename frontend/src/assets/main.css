@@ -54,17 +54,19 @@ h2 {
 }
 
 h1 {
-  padding: var(--gap1) var(--gap2);
+  padding: var(--padding) 0;
   font-size: 1.2rem;
 }
 
 h2 {
-  padding: var(--gap2);
-  font-size: 1.05rem;
+  padding: calc(var(--padding) * 0.75) 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-fg-text);
 }
 
 p {
-  padding: var(--gap2);
+  font-size: 0.9rem;
   font-weight: 400;
 }
 
@@ -79,9 +81,9 @@ a {
 }
 
 hr {
-  height: 1px;
-  margin: var(--gap0) var(--gap1);
-  border: calc(var(--border) / 2) solid var(--color-border);
+  height: var(--border);
+  margin: var(--padding);
+  border-bottom: var(--border) solid var(--color-border);
 }
 
 button,
