@@ -2,6 +2,7 @@
 import { ref } from "vue"
 
 const {} = defineProps<{
+  type?: "text" | "number"
   icon?: string
 }>()
 
@@ -16,12 +17,22 @@ const blur = () => {
 }
 
 defineExpose({ focus, blur })
+
+const handleValidate = () => {}
 </script>
 
 <template>
   <div class="input">
     <span v-if="icon" class="material-symbols-outlined">{{ icon }}</span>
-    <input v-model="model" ref="input" v-bind="$attrs" type="text" />
+    <input
+      ref="input"
+      v-model="model"
+      v-bind="$attrs"
+      :type="type"
+      @keydown.enter="handleValidate()"
+      @keydown.esc="handleValidate()"
+      @blur.esc="handleValidate()"
+    />
   </div>
 </template>
 

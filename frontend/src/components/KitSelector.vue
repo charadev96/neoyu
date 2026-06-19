@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick } from "vue"
 
-import KitInputText from "@/components/KitInputText.vue"
+import KitInput from "@/components/KitInput.vue"
 import KitButton from "@/components/KitButton.vue"
 import KitActions from "@/components/KitActions.vue"
 
@@ -117,7 +117,7 @@ const handleAction = async (item: Item, action: string) => {
 
 <template>
   <div class="selector" :class="{ compact: compact }">
-    <kit-input-text
+    <kit-input
       class="filter"
       v-model="filterQuery"
       ref="filterRef"
@@ -137,7 +137,7 @@ const handleAction = async (item: Item, action: string) => {
         <kit-button icon="add" v-if="state !== 'create'" @click="handleEdit()"
           >Add</kit-button
         >
-        <kit-input-text
+        <kit-input
           v-else
           v-model="editName"
           icon="add"
@@ -149,7 +149,7 @@ const handleAction = async (item: Item, action: string) => {
         />
       </template>
       <template v-for="item in filteredItems" :key="item.id">
-        <kit-input-text
+        <kit-input
           v-if="state === 'rename' && selected === item"
           ref="editRef"
           icon="edit"
