@@ -1,28 +1,24 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends ID">
 import { ref, computed, nextTick } from "vue"
 
 import KitInput from "@/components/KitInput.vue"
 import KitButton from "@/components/KitButton.vue"
 import KitActions from "@/components/KitActions.vue"
-
-interface Item {
-  id: string
-  name: string
-}
+import { type ID, type Item } from "@/types.ts"
 
 const { items = [], compact = false } = defineProps<{
   compact?: boolean
-  items: Item[]
+  items: Item<T>[]
 }>()
 
 const emit = defineEmits<{
   create: [name: string]
-  select: [id: string | undefined]
-  rename: [id: string, name: string]
-  delete: [id: string]
+  select: [id: T | undefined]
+  rename: [id: T, name: string]
+  delete: [id: T]
 }>()
 
-const selected = defineModel<Item>()
+const selected = defineModel<T>()
 
 const open = ref(false)
 const state = ref<"rename" | "create">()
@@ -37,9 +33,13 @@ const itemsRef = ref<HTMLElement>()
 
 const filteredItems = computed(() => {
   if (!filterQuery.value) return items
-  return items.filter((item: Item) =>
+  return items.filter((item: Item<T>) =>
     item.name.toLowerCase().includes(filterQuery.value.toLowerCase()),
   )
+})
+
+const selectedName = computed(() => {
+  return items.find((item: Item<T>) => selected.value === item.id)?.name
 })
 
 const handleOpen = () => {
@@ -61,18 +61,17 @@ const clampPopup = () => {
   el.style.maxHeight = `${Math.max(available, 64)}px`
 }
 
-const handleSelect = (item?: Item) => {
+const handleSelect = (id: T | undefined) => {
   if (compact) filterRef.value?.blur()
-  if (selected.value === item) return
-
-  selected.value = item
-  emit("select", item?.id)
+  if (selected.value === id) return
+  selected.value = id
+  emit("select", id)
 }
 
-const handleEdit = async (item?: Item) => {
-  selected.value = item ?? { id: "", name: "" }
-  state.value = item == undefined ? "create" : "rename"
-  editName.value = selected.value.name
+const handleEdit = async (id: T | undefined) => {
+  handleSelect(id)
+  state.value = id == undefined ? "create" : "rename"
+  editName.value = selectedName.value ?? ""
 
   nextTick(() => {
     const el = editRef.value[0] ?? editRef.value
@@ -85,28 +84,27 @@ const handleEditCancel = () => {
 }
 
 const handleEditConfirm = () => {
-  if (selected.value == undefined) {
-    handleEditCancel()
-    return
-  }
-
-  if (state.value === "create") {
-    emit("create", editName.value || "Unnamed")
-  } else {
-    emit("rename", selected.value.id, editName.value || "Unnamed")
+  switch (state.value) {
+    case "create":
+      emit("create", editName.value || "Unnamed")
+      break
+    case "rename":
+      if (selected.value == undefined) return
+      emit("rename", selected.value, editName.value || "Unnamed")
+      break
   }
   state.value = undefined
 }
 
-const handleDelete = (id: string) => {
+const handleDelete = (id: T) => {
   handleSelect(undefined)
   emit("delete", id)
 }
 
-const handleAction = async (item: Item, action: string) => {
+const handleAction = async (item: Item<T>, action: string) => {
   switch (action) {
     case "edit":
-      await handleEdit(item)
+      await handleEdit(item.id)
       break
     case "delete":
       handleDelete(item.id)
@@ -125,7 +123,7 @@ const handleAction = async (item: Item, action: string) => {
       @focus="handleOpen()"
       @blur="handleClose()"
       :class="{ compact: open && compact }"
-      :placeholder="!open && compact ? (selected?.name ?? 'None') : 'Filter'"
+      :placeholder="!open && compact ? (selectedName ?? 'None') : 'Filter'"
     />
     <div
       v-if="open || !compact"
@@ -134,7 +132,10 @@ const handleAction = async (item: Item, action: string) => {
       :class="{ compact: open && compact }"
     >
       <template v-if="!compact">
-        <kit-button icon="add" v-if="state !== 'create'" @click="handleEdit()"
+        <kit-button
+          icon="add"
+          v-if="state !== 'create'"
+          @click="handleEdit(undefined)"
           >Add</kit-button
         >
         <kit-input
@@ -150,7 +151,7 @@ const handleAction = async (item: Item, action: string) => {
       </template>
       <template v-for="item in filteredItems" :key="item.id">
         <kit-input
-          v-if="state === 'rename' && selected === item"
+          v-if="state === 'rename' && selected === item.id"
           ref="editRef"
           icon="edit"
           @blur="handleEditCancel()"
@@ -159,8 +160,16 @@ const handleAction = async (item: Item, action: string) => {
           v-model="editName"
           placeholder="Unnamed"
         />
-        <kit-button v-else tag="div" class="item" :selected="selected === item">
-          <button class="item-button" @mousedown.prevent="handleSelect(item)">
+        <kit-button
+          v-else
+          tag="div"
+          class="item"
+          :selected="selected === item.id"
+        >
+          <button
+            class="item-button"
+            @mousedown.prevent="handleSelect(item.id)"
+          >
             {{ item.name }}
           </button>
           <kit-actions
