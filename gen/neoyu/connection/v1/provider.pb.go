@@ -476,12 +476,12 @@ var File_neoyu_connection_v1_provider_proto protoreflect.FileDescriptor
 
 const file_neoyu_connection_v1_provider_proto_rawDesc = "" +
 	"\n" +
-	"\"neoyu/connection/v1/provider.proto\x12\x13neoyu.connection.v1\x1a\x1bbuf/validate/validate.proto\"\xad\x01\n" +
+	"\"neoyu/connection/v1/provider.proto\x12\x13neoyu.connection.v1\x1a\x1bbuf/validate/validate.proto\"\xb0\x01\n" +
 	"\bProvider\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x125\n" +
-	"\x04type\x18\x03 \x01(\x0e2!.neoyu.connection.v1.ProviderTypeR\x04type\x12#\n" +
-	"\bbase_url\x18\x04 \x01(\tB\b\xbaH\x05r\x03\x88\x01\x01R\abaseUrl\x12\x17\n" +
+	"\x04type\x18\x03 \x01(\x0e2!.neoyu.connection.v1.ProviderTypeR\x04type\x12&\n" +
+	"\bbase_url\x18\x04 \x01(\tB\v\xbaH\b\xd8\x01\x01r\x03\x88\x01\x01R\abaseUrl\x12\x17\n" +
 	"\aapi_key\x18\x05 \x01(\tR\x06apiKey\"\x16\n" +
 	"\x14ListProvidersRequest\"T\n" +
 	"\x15ListProvidersResponse\x12;\n" +
