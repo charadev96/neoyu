@@ -14,7 +14,7 @@ import (
 func NewConsoleLogger() zerolog.Logger {
 	writer := zerolog.ConsoleWriter{
 		Out:        os.Stderr,
-		TimeFormat: "15:04",
+		TimeFormat: "15:04:05",
 	}
 
 	writer.FormatFieldName = func(i any) string {
