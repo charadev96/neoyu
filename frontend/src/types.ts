@@ -6,6 +6,10 @@ export interface Item<T extends ID> {
 }
 
 export type FormValue = Record<string, unknown>
+export type FormShape = Record<
+  string,
+  FieldString | FieldNumber | FieldItems<any>
+>
 
 export interface Field {
   readonly type: string

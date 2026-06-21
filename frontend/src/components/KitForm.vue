@@ -4,16 +4,10 @@ import { ref, computed, watch, onMounted, toRaw } from "vue"
 import KitInput from "@/components/KitInput.vue"
 import KitButton from "@/components/KitButton.vue"
 import KitSelector from "@/components/KitSelector.vue"
-import {
-  type Item,
-  type FormValue,
-  type FieldString,
-  type FieldNumber,
-  type FieldItems,
-} from "@/types.ts"
+import { type Item, type FormValue, type FormShape } from "@/types.ts"
 
 const { form = {}, clean = {} } = defineProps<{
-  form: Record<string, FieldString | FieldNumber | FieldItems<any>>
+  form: FormShape
   clean: FormValue
 }>()
 
