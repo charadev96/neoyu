@@ -1,12 +1,45 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref, computed, onMounted } from "vue"
 
 import { providerClient } from "@/client.ts"
 import { type Provider } from "@/gen/neoyu/connection/v1/provider_pb"
+
 import KitSelector from "@/components/KitSelector.vue"
+import KitForm from "@/components/KitForm.vue"
+import { type FormValue, type FormShape } from "@/types.ts"
 
 const providers = ref<Provider[]>([])
 const selected = ref<string | undefined>("")
+
+const form = ref<FormShape>({
+  type: {
+    type: "items",
+    name: "Provider Type",
+    info: "",
+    items: [
+      { id: 0, name: "Custom" },
+      { id: 1, name: "OpenRouter" },
+    ],
+  },
+  baseUrl: {
+    type: "string",
+    name: "Base URL",
+    info: "Leave empty for provider default.",
+  },
+  apiKey: {
+    type: "string",
+    name: "API Key",
+  },
+  model: {
+    type: "string",
+    name: "Model ID",
+    info: "Name of the model, e.g. llama3.",
+  },
+})
+
+const selectedProvider = computed(() => {
+  return providers.value.find((p) => p.id === selected.value)
+})
 
 const fetchProviders = async () => {
   const response = await providerClient.listProviders({})
@@ -18,7 +51,6 @@ const handleCreate = async (name: string) => {
     provider: {
       id: crypto.randomUUID(),
       name: name,
-      baseUrl: "http://127.0.0.1:8080/",
     },
   })
   fetchProviders()
@@ -42,13 +74,18 @@ const handleDelete = async (id: string) => {
   fetchProviders()
 }
 
+const handleSave = async (value: FormValue) => {
+  await providerClient.setProvider({ provider: { ...value } })
+  fetchProviders()
+}
+
 onMounted(fetchProviders)
 </script>
 
 <template>
   <div class="view">
     <div class="sidepanel">
-      <h1 class="title">Connections</h1>
+      <h1>Connections</h1>
       <kit-selector
         :items="providers"
         @create="handleCreate"
@@ -58,16 +95,26 @@ onMounted(fetchProviders)
       />
     </div>
     <div class="content" v-if="selected && providers">
-      <h1 class="title">{{ providers.find((p) => p.id === selected).name }}</h1>
+      <h1>
+        {{ selectedProvider?.name }}
+      </h1>
+      <kit-form
+        class="form"
+        :clean="selectedProvider ?? {}"
+        :form="form"
+        @save="
+          (value) =>
+            handleSave({
+              $typeName: 'neoyu.connection.v1.Provider',
+              ...value,
+            })
+        "
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.title {
-  padding: var(--padding) 0;
-}
-
 .view {
   display: flex;
   width: 100%;
@@ -90,5 +137,10 @@ onMounted(fetchProviders)
 
 .content {
   flex: 1 1 0%;
+}
+
+.form {
+  align-self: center;
+  min-width: min(550px, 100%);
 }
 </style>
