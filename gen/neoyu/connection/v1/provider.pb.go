@@ -75,6 +75,7 @@ type Provider struct {
 	Type          ProviderType           `protobuf:"varint,3,opt,name=type,proto3,enum=neoyu.connection.v1.ProviderType" json:"type,omitempty"`
 	BaseUrl       string                 `protobuf:"bytes,4,opt,name=base_url,json=baseUrl,proto3" json:"base_url,omitempty"`
 	ApiKey        string                 `protobuf:"bytes,5,opt,name=api_key,json=apiKey,proto3" json:"api_key,omitempty"`
+	Model         string                 `protobuf:"bytes,6,opt,name=model,proto3" json:"model,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -140,6 +141,13 @@ func (x *Provider) GetBaseUrl() string {
 func (x *Provider) GetApiKey() string {
 	if x != nil {
 		return x.ApiKey
+	}
+	return ""
+}
+
+func (x *Provider) GetModel() string {
+	if x != nil {
+		return x.Model
 	}
 	return ""
 }
@@ -476,13 +484,14 @@ var File_neoyu_connection_v1_provider_proto protoreflect.FileDescriptor
 
 const file_neoyu_connection_v1_provider_proto_rawDesc = "" +
 	"\n" +
-	"\"neoyu/connection/v1/provider.proto\x12\x13neoyu.connection.v1\x1a\x1bbuf/validate/validate.proto\"\xb0\x01\n" +
+	"\"neoyu/connection/v1/provider.proto\x12\x13neoyu.connection.v1\x1a\x1bbuf/validate/validate.proto\"\xc6\x01\n" +
 	"\bProvider\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x125\n" +
 	"\x04type\x18\x03 \x01(\x0e2!.neoyu.connection.v1.ProviderTypeR\x04type\x12&\n" +
 	"\bbase_url\x18\x04 \x01(\tB\v\xbaH\b\xd8\x01\x01r\x03\x88\x01\x01R\abaseUrl\x12\x17\n" +
-	"\aapi_key\x18\x05 \x01(\tR\x06apiKey\"\x16\n" +
+	"\aapi_key\x18\x05 \x01(\tR\x06apiKey\x12\x14\n" +
+	"\x05model\x18\x06 \x01(\tR\x05model\"\x16\n" +
 	"\x14ListProvidersRequest\"T\n" +
 	"\x15ListProvidersResponse\x12;\n" +
 	"\tproviders\x18\x01 \x03(\v2\x1d.neoyu.connection.v1.ProviderR\tproviders\".\n" +

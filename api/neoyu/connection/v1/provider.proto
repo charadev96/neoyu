@@ -18,6 +18,7 @@ message Provider {
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
   string api_key = 5;
+  string model = 6;
 }
 
 service ProviderService {
