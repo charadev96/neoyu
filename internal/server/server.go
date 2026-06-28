@@ -17,7 +17,7 @@ import (
 )
 
 type DB struct {
-	Connections *db.FileStore[service.ProviderSchema]
+	Connections *db.File[service.ProviderSchema]
 }
 
 type Server struct {

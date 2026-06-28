@@ -16,10 +16,10 @@ type ProviderSchema struct {
 }
 
 type Provider struct {
-	db *db.FileStore[ProviderSchema]
+	db *db.File[ProviderSchema]
 }
 
-func NewProvider(s *db.FileStore[ProviderSchema]) *Provider {
+func NewProvider(s *db.File[ProviderSchema]) *Provider {
 	return &Provider{s}
 }
 

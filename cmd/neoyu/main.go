@@ -17,7 +17,7 @@ func main() {
 	log := middleware.NewConsoleLogger()
 
 	svr := server.New(dist, server.DB{
-		Connections: db.NewFileStore[service.ProviderSchema]("data/connections.yaml"),
+		Connections: db.NewFile[service.ProviderSchema]("data/connections.yaml"),
 	})
 
 	log.Info().

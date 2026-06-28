@@ -17,21 +17,21 @@ const (
 	permDir  = 0755
 )
 
-type FileStore[G any] struct {
+type File[T any] struct {
 	file     string
-	cache    *G
+	cache    *T
 	lastLoad time.Time
 	mu       sync.Mutex
 }
 
-func NewFileStore[G any](file string) *FileStore[G] {
-	return &FileStore[G]{
+func NewFile[T any](file string) *File[T] {
+	return &File[T]{
 		file:  file,
-		cache: new(G),
+		cache: new(T),
 	}
 }
 
-func (s *FileStore[G]) Save(data G) error {
+func (s *File[T]) Save(data T) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -50,51 +50,51 @@ func (s *FileStore[G]) Save(data G) error {
 	return os.WriteFile(s.file, bytes, permFile)
 }
 
-func (s *FileStore[G]) Load() (G, error) {
+func (s *File[T]) Load() (T, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
 	info, err := os.Stat(s.file)
 	if errors.Is(err, os.ErrNotExist) {
 		if err := s.init(); err != nil {
-			return *new(G), fmt.Errorf("create file: %w", err)
+			return *new(T), fmt.Errorf("create file: %w", err)
 		}
 		info, err = os.Stat(s.file)
 		if err != nil {
-			return *new(G), err
+			return *new(T), err
 		}
 	} else if err != nil {
-		return *new(G), err
+		return *new(T), err
 	}
 
 	mod := info.ModTime().After(s.lastLoad)
 	if !mod {
-		var data G
+		var data T
 		if err := deepcopy.Copy(&data, s.cache); err != nil {
-			return *new(G), fmt.Errorf("copy from cache: %w", err)
+			return *new(T), fmt.Errorf("copy from cache: %w", err)
 		}
 		return data, nil
 	}
 
 	bytes, err := os.ReadFile(s.file)
 	if err != nil {
-		return *new(G), err
+		return *new(T), err
 	}
 
-	var data G
+	var data T
 	if err := yaml.Unmarshal(bytes, &data); err != nil {
-		return *new(G), fmt.Errorf("unmarshal yaml: %w", err)
+		return *new(T), fmt.Errorf("unmarshal yaml: %w", err)
 	}
 
 	if err := deepcopy.Copy(s.cache, data); err != nil {
-		return *new(G), fmt.Errorf("copy to cache: %w", err)
+		return *new(T), fmt.Errorf("copy to cache: %w", err)
 	}
 	s.lastLoad = info.ModTime()
 
 	return data, nil
 }
 
-func (s *FileStore[G]) init() error {
+func (s *File[_]) init() error {
 	if err := os.MkdirAll(filepath.Dir(s.file), permDir); err != nil {
 		return err
 	}
