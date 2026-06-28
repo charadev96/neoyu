@@ -26,12 +26,7 @@ func (h *Provider) ListProviders(ctx context.Context, req *v1.ListProvidersReque
 		return nil, err
 	}
 
-	refs := make([]*v1.Provider, len(ps))
-	for i, p := range ps {
-		refs[i] = &p
-	}
-
-	return &v1.ListProvidersResponse{Providers: refs}, nil
+	return &v1.ListProvidersResponse{Providers: ps}, nil
 }
 
 func (h *Provider) GetProvider(ctx context.Context, req *v1.GetProviderRequest) (*v1.GetProviderResponse, error) {
@@ -43,11 +38,11 @@ func (h *Provider) GetProvider(ctx context.Context, req *v1.GetProviderRequest) 
 		return nil, err
 	}
 
-	return &v1.GetProviderResponse{Provider: &p}, nil
+	return &v1.GetProviderResponse{Provider: p}, nil
 }
 
 func (h *Provider) SetProvider(ctx context.Context, req *v1.SetProviderRequest) (*v1.SetProviderResponse, error) {
-	if err := h.svc.Set(*req.Provider); err != nil {
+	if err := h.svc.Set(req.Provider); err != nil {
 		if errors.Is(err, common.ErrNotExist) {
 			return nil, connect.NewError(connect.CodeNotFound, err)
 		}

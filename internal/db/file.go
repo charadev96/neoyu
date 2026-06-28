@@ -12,11 +12,6 @@ import (
 	"github.com/tiendc/go-deepcopy"
 )
 
-const (
-	permFile = 0644
-	permDir  = 0755
-)
-
 type File[T any] struct {
 	file     string
 	cache    *T
