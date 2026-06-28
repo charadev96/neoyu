@@ -5,6 +5,7 @@ import (
 	"slices"
 
 	v1 "github.com/charadev96/neoyu/gen/neoyu/connection/v1"
+	"github.com/charadev96/neoyu/internal/common"
 	"github.com/charadev96/neoyu/internal/db"
 
 	"github.com/google/uuid"
@@ -39,7 +40,7 @@ func (s *Provider) Get(id uuid.UUID) (v1.Provider, error) {
 
 	i := s.index(data.Providers, id)
 	if i == -1 {
-		return v1.Provider{}, ErrNotExist
+		return v1.Provider{}, common.ErrNotExist
 	}
 
 	return data.Providers[i], nil
@@ -72,7 +73,7 @@ func (s *Provider) Delete(id uuid.UUID) error {
 
 	i := s.index(data.Providers, id)
 	if i == -1 {
-		return ErrNotExist
+		return common.ErrNotExist
 	}
 	data.Providers = slices.Delete(data.Providers, i, i+1)
 

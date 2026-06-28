@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	v1 "github.com/charadev96/neoyu/gen/neoyu/connection/v1"
+	"github.com/charadev96/neoyu/internal/common"
 	"github.com/charadev96/neoyu/internal/service"
 
 	"connectrpc.com/connect"
@@ -36,7 +37,7 @@ func (h *Provider) ListProviders(ctx context.Context, req *v1.ListProvidersReque
 func (h *Provider) GetProvider(ctx context.Context, req *v1.GetProviderRequest) (*v1.GetProviderResponse, error) {
 	p, err := h.svc.Get(uuid.MustParse(req.Id))
 	if err != nil {
-		if errors.Is(err, service.ErrNotExist) {
+		if errors.Is(err, common.ErrNotExist) {
 			return nil, connect.NewError(connect.CodeNotFound, err)
 		}
 		return nil, err
@@ -47,7 +48,7 @@ func (h *Provider) GetProvider(ctx context.Context, req *v1.GetProviderRequest) 
 
 func (h *Provider) SetProvider(ctx context.Context, req *v1.SetProviderRequest) (*v1.SetProviderResponse, error) {
 	if err := h.svc.Set(*req.Provider); err != nil {
-		if errors.Is(err, service.ErrNotExist) {
+		if errors.Is(err, common.ErrNotExist) {
 			return nil, connect.NewError(connect.CodeNotFound, err)
 		}
 		return nil, err
@@ -58,7 +59,7 @@ func (h *Provider) SetProvider(ctx context.Context, req *v1.SetProviderRequest) 
 
 func (h *Provider) DeleteProvider(ctx context.Context, req *v1.DeleteProviderRequest) (*v1.DeleteProviderResponse, error) {
 	if err := h.svc.Delete(uuid.MustParse(req.Id)); err != nil {
-		if errors.Is(err, service.ErrNotExist) {
+		if errors.Is(err, common.ErrNotExist) {
 			return nil, connect.NewError(connect.CodeNotFound, err)
 		}
 		return nil, err
