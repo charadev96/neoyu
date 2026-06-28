@@ -27,7 +27,9 @@ tasks:
   buf:
     deps: [dep:ts, dep:buf]
     desc: Generate Protobuf stubs
-    cmds: [buf generate]
+    cmds:
+      - buf generate
+      - task: fmt
     sources:
       - buf.yaml
       - buf.gen.yaml
@@ -86,7 +88,7 @@ tasks:
 
   fmt:
     desc: Format source files
-    cmds: 
+    cmds:
       - go fmt ./...
       - buf format -w
       - cd frontend && npm exec prettier -- -w --experimental-cli ./**/*
