@@ -57,7 +57,7 @@ func (s *Dir[T]) Save(data T) error {
 		return fmt.Errorf("ensure store: %w", err)
 	}
 	if _, ok := s.records[id]; !ok {
-		s.records[id] = NewFile[T](filepath.Join(s.dir, id.String(), ".yaml"))
+		s.records[id] = NewFile[T](filepath.Join(s.dir, id.String()+".yaml"))
 	}
 
 	if err := s.records[id].Save(data); err != nil {
