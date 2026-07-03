@@ -3,9 +3,9 @@ package db
 import (
 	"errors"
 	"fmt"
-	"maps"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 
 	"github.com/charadev96/neoyu/internal/common"
@@ -36,8 +36,24 @@ func (s *Dir[T]) List() ([]T, error) {
 		return list, fmt.Errorf("ensure store: %w", err)
 	}
 
-	for k, v := range maps.All(s.records) {
-		data, err := v.Load()
+	files, err := os.ReadDir(s.dir)
+	if err != nil {
+		return list, err
+	}
+
+	for k, f := range files {
+		name := f.Name()
+		id, err := uuid.Parse(strings.TrimSuffix(name, ".yaml"))
+		if err != nil {
+			// todo: Log warning on unknown file
+			continue
+		}
+
+		if _, ok := s.records[id]; !ok {
+			s.records[id] = NewFile[T](filepath.Join(s.dir, name))
+		}
+
+		data, err := s.records[id].Load()
 		if err != nil {
 			return list, fmt.Errorf("%s: %w", k, err)
 		}
@@ -57,7 +73,7 @@ func (s *Dir[T]) Save(data T) error {
 		return fmt.Errorf("ensure store: %w", err)
 	}
 	if _, ok := s.records[id]; !ok {
-		s.records[id] = NewFile[T](filepath.Join(s.dir, id.String()+".yaml"))
+		s.records[id] = NewFile[T](s.recordPath(id))
 	}
 
 	if err := s.records[id].Save(data); err != nil {
@@ -96,6 +112,10 @@ func (s *Dir[_]) Delete(id uuid.UUID) error {
 
 	delete(s.records, id)
 	return nil
+}
+
+func (s *Dir[_]) recordPath(id uuid.UUID) string {
+	return filepath.Join(s.dir, id.String()+".yaml")
 }
 
 func (s *Dir[T]) ensure() error {
