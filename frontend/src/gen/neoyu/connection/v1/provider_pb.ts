@@ -23,7 +23,7 @@ import type { Message } from "@bufbuild/protobuf"
 export const file_neoyu_connection_v1_provider: GenFile =
   /*@__PURE__*/
   fileDesc(
-    "CiJuZW95dS9jb25uZWN0aW9uL3YxL3Byb3ZpZGVyLnByb3RvEhNuZW95dS5jb25uZWN0aW9uLnYxIp4BCghQcm92aWRlchIUCgJpZBgBIAEoCUIIukgFcgOwAQESDAoEbmFtZRgCIAEoCRIvCgR0eXBlGAMgASgOMiEubmVveXUuY29ubmVjdGlvbi52MS5Qcm92aWRlclR5cGUSHQoIYmFzZV91cmwYBCABKAlCC7pICNgBAXIDiAEBEg8KB2FwaV9rZXkYBSABKAkSDQoFbW9kZWwYBiABKAkiFgoUTGlzdFByb3ZpZGVyc1JlcXVlc3QiSQoVTGlzdFByb3ZpZGVyc1Jlc3BvbnNlEjAKCXByb3ZpZGVycxgBIAMoCzIdLm5lb3l1LmNvbm5lY3Rpb24udjEuUHJvdmlkZXIiKgoSR2V0UHJvdmlkZXJSZXF1ZXN0EhQKAmlkGAEgASgJQgi6SAVyA7ABASJGChNHZXRQcm92aWRlclJlc3BvbnNlEi8KCHByb3ZpZGVyGAEgASgLMh0ubmVveXUuY29ubmVjdGlvbi52MS5Qcm92aWRlciJFChJTZXRQcm92aWRlclJlcXVlc3QSLwoIcHJvdmlkZXIYASABKAsyHS5uZW95dS5jb25uZWN0aW9uLnYxLlByb3ZpZGVyIhUKE1NldFByb3ZpZGVyUmVzcG9uc2UiLQoVRGVsZXRlUHJvdmlkZXJSZXF1ZXN0EhQKAmlkGAEgASgJQgi6SAVyA7ABASIYChZEZWxldGVQcm92aWRlclJlc3BvbnNlKlIKDFByb3ZpZGVyVHlwZRIkCiBQUk9WSURFUl9UWVBFX0NVU1RPTV9VTlNQRUNJRklFRBAAEhwKGFBST1ZJREVSX1RZUEVfT1BFTlJPVVRFUhABMqgDCg9Qcm92aWRlclNlcnZpY2USZgoNTGlzdFByb3ZpZGVycxIpLm5lb3l1LmNvbm5lY3Rpb24udjEuTGlzdFByb3ZpZGVyc1JlcXVlc3QaKi5uZW95dS5jb25uZWN0aW9uLnYxLkxpc3RQcm92aWRlcnNSZXNwb25zZRJgCgtHZXRQcm92aWRlchInLm5lb3l1LmNvbm5lY3Rpb24udjEuR2V0UHJvdmlkZXJSZXF1ZXN0GigubmVveXUuY29ubmVjdGlvbi52MS5HZXRQcm92aWRlclJlc3BvbnNlEmAKC1NldFByb3ZpZGVyEicubmVveXUuY29ubmVjdGlvbi52MS5TZXRQcm92aWRlclJlcXVlc3QaKC5uZW95dS5jb25uZWN0aW9uLnYxLlNldFByb3ZpZGVyUmVzcG9uc2USaQoORGVsZXRlUHJvdmlkZXISKi5uZW95dS5jb25uZWN0aW9uLnYxLkRlbGV0ZVByb3ZpZGVyUmVxdWVzdBorLm5lb3l1LmNvbm5lY3Rpb24udjEuRGVsZXRlUHJvdmlkZXJSZXNwb25zZULYAQoXY29tLm5lb3l1LmNvbm5lY3Rpb24udjFCDVByb3ZpZGVyUHJvdG9QAVpAZ2l0aHViLmNvbS9jaGFyYWRldjk2L25lb3l1L2dlbi9uZW95dS9jb25uZWN0aW9uL3YxO2Nvbm5lY3Rpb252MaICA05DWKoCE05lb3l1LkNvbm5lY3Rpb24uVjHKAhNOZW95dVxDb25uZWN0aW9uXFYx4gIfTmVveXVcQ29ubmVjdGlvblxWMVxHUEJNZXRhZGF0YeoCFU5lb3l1OjpDb25uZWN0aW9uOjpWMWIGcHJvdG8z",
+    "CiJuZW95dS9jb25uZWN0aW9uL3YxL3Byb3ZpZGVyLnByb3RvEhNuZW95dS5jb25uZWN0aW9uLnYxIp4BCghQcm92aWRlchIUCgJpZBgBIAEoCUIIukgFcgOwAQESDAoEbmFtZRgCIAEoCRIvCgR0eXBlGAMgASgOMiEubmVveXUuY29ubmVjdGlvbi52MS5Qcm92aWRlclR5cGUSHQoIYmFzZV91cmwYBCABKAlCC7pICNgBAXIDiAEBEg8KB2FwaV9rZXkYBSABKAkSDQoFbW9kZWwYBiABKAkiQwoPQ29ubmVjdGlvblN0b3JlEjAKCXByb3ZpZGVycxgBIAMoCzIdLm5lb3l1LmNvbm5lY3Rpb24udjEuUHJvdmlkZXIiFgoUTGlzdFByb3ZpZGVyc1JlcXVlc3QiSQoVTGlzdFByb3ZpZGVyc1Jlc3BvbnNlEjAKCXByb3ZpZGVycxgBIAMoCzIdLm5lb3l1LmNvbm5lY3Rpb24udjEuUHJvdmlkZXIiKgoSR2V0UHJvdmlkZXJSZXF1ZXN0EhQKAmlkGAEgASgJQgi6SAVyA7ABASJGChNHZXRQcm92aWRlclJlc3BvbnNlEi8KCHByb3ZpZGVyGAEgASgLMh0ubmVveXUuY29ubmVjdGlvbi52MS5Qcm92aWRlciJFChJTZXRQcm92aWRlclJlcXVlc3QSLwoIcHJvdmlkZXIYASABKAsyHS5uZW95dS5jb25uZWN0aW9uLnYxLlByb3ZpZGVyIhUKE1NldFByb3ZpZGVyUmVzcG9uc2UiLQoVRGVsZXRlUHJvdmlkZXJSZXF1ZXN0EhQKAmlkGAEgASgJQgi6SAVyA7ABASIYChZEZWxldGVQcm92aWRlclJlc3BvbnNlKlIKDFByb3ZpZGVyVHlwZRIkCiBQUk9WSURFUl9UWVBFX0NVU1RPTV9VTlNQRUNJRklFRBAAEhwKGFBST1ZJREVSX1RZUEVfT1BFTlJPVVRFUhABMqgDCg9Qcm92aWRlclNlcnZpY2USZgoNTGlzdFByb3ZpZGVycxIpLm5lb3l1LmNvbm5lY3Rpb24udjEuTGlzdFByb3ZpZGVyc1JlcXVlc3QaKi5uZW95dS5jb25uZWN0aW9uLnYxLkxpc3RQcm92aWRlcnNSZXNwb25zZRJgCgtHZXRQcm92aWRlchInLm5lb3l1LmNvbm5lY3Rpb24udjEuR2V0UHJvdmlkZXJSZXF1ZXN0GigubmVveXUuY29ubmVjdGlvbi52MS5HZXRQcm92aWRlclJlc3BvbnNlEmAKC1NldFByb3ZpZGVyEicubmVveXUuY29ubmVjdGlvbi52MS5TZXRQcm92aWRlclJlcXVlc3QaKC5uZW95dS5jb25uZWN0aW9uLnYxLlNldFByb3ZpZGVyUmVzcG9uc2USaQoORGVsZXRlUHJvdmlkZXISKi5uZW95dS5jb25uZWN0aW9uLnYxLkRlbGV0ZVByb3ZpZGVyUmVxdWVzdBorLm5lb3l1LmNvbm5lY3Rpb24udjEuRGVsZXRlUHJvdmlkZXJSZXNwb25zZULYAQoXY29tLm5lb3l1LmNvbm5lY3Rpb24udjFCDVByb3ZpZGVyUHJvdG9QAVpAZ2l0aHViLmNvbS9jaGFyYWRldjk2L25lb3l1L2dlbi9uZW95dS9jb25uZWN0aW9uL3YxO2Nvbm5lY3Rpb252MaICA05DWKoCE05lb3l1LkNvbm5lY3Rpb24uVjHKAhNOZW95dVxDb25uZWN0aW9uXFYx4gIfTmVveXVcQ29ubmVjdGlvblxWMVxHUEJNZXRhZGF0YeoCFU5lb3l1OjpDb25uZWN0aW9uOjpWMWIGcHJvdG8z",
     [file_buf_validate_validate],
   )
 
@@ -71,6 +71,24 @@ export const ProviderSchema: GenMessage<Provider> =
   messageDesc(file_neoyu_connection_v1_provider, 0)
 
 /**
+ * @generated from message neoyu.connection.v1.ConnectionStore
+ */
+export type ConnectionStore = Message<"neoyu.connection.v1.ConnectionStore"> & {
+  /**
+   * @generated from field: repeated neoyu.connection.v1.Provider providers = 1;
+   */
+  providers: Provider[]
+}
+
+/**
+ * Describes the message neoyu.connection.v1.ConnectionStore.
+ * Use `create(ConnectionStoreSchema)` to create a new message.
+ */
+export const ConnectionStoreSchema: GenMessage<ConnectionStore> =
+  /*@__PURE__*/
+  messageDesc(file_neoyu_connection_v1_provider, 1)
+
+/**
  * @generated from message neoyu.connection.v1.ListProvidersRequest
  */
 export type ListProvidersRequest =
@@ -82,7 +100,7 @@ export type ListProvidersRequest =
  */
 export const ListProvidersRequestSchema: GenMessage<ListProvidersRequest> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 1)
+  messageDesc(file_neoyu_connection_v1_provider, 2)
 
 /**
  * @generated from message neoyu.connection.v1.ListProvidersResponse
@@ -101,7 +119,7 @@ export type ListProvidersResponse =
  */
 export const ListProvidersResponseSchema: GenMessage<ListProvidersResponse> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 2)
+  messageDesc(file_neoyu_connection_v1_provider, 3)
 
 /**
  * @generated from message neoyu.connection.v1.GetProviderRequest
@@ -120,7 +138,7 @@ export type GetProviderRequest =
  */
 export const GetProviderRequestSchema: GenMessage<GetProviderRequest> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 3)
+  messageDesc(file_neoyu_connection_v1_provider, 4)
 
 /**
  * @generated from message neoyu.connection.v1.GetProviderResponse
@@ -139,7 +157,7 @@ export type GetProviderResponse =
  */
 export const GetProviderResponseSchema: GenMessage<GetProviderResponse> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 4)
+  messageDesc(file_neoyu_connection_v1_provider, 5)
 
 /**
  * @generated from message neoyu.connection.v1.SetProviderRequest
@@ -158,7 +176,7 @@ export type SetProviderRequest =
  */
 export const SetProviderRequestSchema: GenMessage<SetProviderRequest> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 5)
+  messageDesc(file_neoyu_connection_v1_provider, 6)
 
 /**
  * @generated from message neoyu.connection.v1.SetProviderResponse
@@ -172,7 +190,7 @@ export type SetProviderResponse =
  */
 export const SetProviderResponseSchema: GenMessage<SetProviderResponse> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 6)
+  messageDesc(file_neoyu_connection_v1_provider, 7)
 
 /**
  * @generated from message neoyu.connection.v1.DeleteProviderRequest
@@ -191,7 +209,7 @@ export type DeleteProviderRequest =
  */
 export const DeleteProviderRequestSchema: GenMessage<DeleteProviderRequest> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 7)
+  messageDesc(file_neoyu_connection_v1_provider, 8)
 
 /**
  * @generated from message neoyu.connection.v1.DeleteProviderResponse
@@ -205,7 +223,7 @@ export type DeleteProviderResponse =
  */
 export const DeleteProviderResponseSchema: GenMessage<DeleteProviderResponse> =
   /*@__PURE__*/
-  messageDesc(file_neoyu_connection_v1_provider, 8)
+  messageDesc(file_neoyu_connection_v1_provider, 9)
 
 /**
  * @generated from enum neoyu.connection.v1.ProviderType

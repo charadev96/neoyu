@@ -12,14 +12,14 @@ type ProviderSchema struct {
 }
 
 type Provider struct {
-	db *db.Lens[ProviderSchema, *v1.Provider]
+	db *db.Lens[*v1.ConnectionStore, *v1.Provider]
 }
 
-func NewProvider(s *db.File[ProviderSchema]) *Provider {
+func NewProvider(d *db.File[*v1.ConnectionStore]) *Provider {
 	return &Provider{
-		db.NewLens[ProviderSchema, *v1.Provider](s,
-			func(s ProviderSchema) *[]*v1.Provider {
-				return s.Providers
+		db.NewLens[*v1.ConnectionStore, *v1.Provider](d,
+			func(s *v1.ConnectionStore) *[]*v1.Provider {
+				return &s.Providers
 			},
 		),
 	}

@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	connectionv1 "github.com/charadev96/neoyu/gen/neoyu/connection/v1/connectionv1connect"
+	connectionv1 "github.com/charadev96/neoyu/gen/neoyu/connection/v1"
+	connectionv1connect "github.com/charadev96/neoyu/gen/neoyu/connection/v1/connectionv1connect"
 	"github.com/charadev96/neoyu/internal/db"
 	"github.com/charadev96/neoyu/internal/handler"
 	"github.com/charadev96/neoyu/internal/middleware"
@@ -17,7 +18,7 @@ import (
 )
 
 type DB struct {
-	Connections *db.File[service.ProviderSchema]
+	Connection *db.File[*connectionv1.ConnectionStore]
 }
 
 type Server struct {
@@ -30,7 +31,7 @@ func New(d fs.FS, db DB) *Server {
 	return &Server{
 		db:       db,
 		dist:     d,
-		provider: service.NewProvider(db.Connections),
+		provider: service.NewProvider(db.Connection),
 	}
 }
 
@@ -40,14 +41,14 @@ func (s *Server) Serve(addr string, log *zerolog.Logger) error {
 		api = http.NewServeMux()
 	)
 
-	path, handler := connectionv1.NewProviderServiceHandler(
+	path, handle := connectionv1connect.NewProviderServiceHandler(
 		handler.NewProvider(s.provider),
 		connect.WithInterceptors(
 			middleware.NewLogInterceptor(log),
 			validate.NewInterceptor(),
 		),
 	)
-	api.Handle(path, handler)
+	api.Handle(path, handle)
 	mux.Handle("/api/", http.StripPrefix("/api", api))
 
 	dist, err := fs.Sub(s.dist, "dist")

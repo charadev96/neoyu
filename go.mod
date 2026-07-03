@@ -9,7 +9,6 @@ require (
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/uuid v1.6.0
 	github.com/rs/zerolog v1.35.1
-	github.com/tiendc/go-deepcopy v1.7.2
 	google.golang.org/protobuf v1.36.11
 )
 

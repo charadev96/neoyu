@@ -7,14 +7,15 @@ import (
 	"github.com/charadev96/neoyu/internal/common"
 
 	"github.com/google/uuid"
+	"google.golang.org/protobuf/proto"
 )
 
-type Lens[S any, T Record] struct {
+type Lens[S proto.Message, T Record] struct {
 	db       *File[S]
 	selector func(S) *[]T
 }
 
-func NewLens[S any, T Record](s *File[S], get func(S) *[]T) *Lens[S, T] {
+func NewLens[S proto.Message, T Record](s *File[S], get func(S) *[]T) *Lens[S, T] {
 	return &Lens[S, T]{s, get}
 }
 
@@ -49,14 +50,12 @@ func (s *Lens[_, T]) Save(val T) error {
 	}
 	list := s.selector(data)
 
-	fmt.Println(data)
 	i := s.index(*list, uuid.MustParse(val.GetId()))
 	if i == -1 {
 		*list = append(*list, val)
 	} else {
 		(*list)[i] = val
 	}
-	fmt.Println(data)
 
 	if err := s.db.Save(data); err != nil {
 		return fmt.Errorf("save: %w", err)

@@ -9,20 +9,20 @@ import (
 	"time"
 
 	"github.com/goccy/go-yaml"
-	"github.com/tiendc/go-deepcopy"
+	"google.golang.org/protobuf/proto"
 )
 
-type File[T any] struct {
+type File[T proto.Message] struct {
 	file     string
-	cache    *T
+	cache    T
 	lastLoad time.Time
 	mu       sync.Mutex
 }
 
-func NewFile[T any](file string) *File[T] {
+func NewFile[T proto.Message](file string) *File[T] {
 	return &File[T]{
 		file:  file,
-		cache: new(T),
+		cache: newMessage[T](),
 	}
 }
 
@@ -30,7 +30,7 @@ func (s *File[T]) Save(data T) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	s.cache = &data
+	s.cache = data
 	bytes, err := yaml.Marshal(s.cache)
 	if err != nil {
 		return fmt.Errorf("marshal yaml: %w", err)
@@ -64,11 +64,7 @@ func (s *File[T]) Load() (T, error) {
 
 	mod := info.ModTime().After(s.lastLoad)
 	if !mod {
-		var data T
-		if err := deepcopy.Copy(&data, s.cache); err != nil {
-			return *new(T), fmt.Errorf("copy from cache: %w", err)
-		}
-		return data, nil
+		return proto.Clone(s.cache).(T), nil
 	}
 
 	bytes, err := os.ReadFile(s.file)
@@ -76,14 +72,12 @@ func (s *File[T]) Load() (T, error) {
 		return *new(T), err
 	}
 
-	var data T
-	if err := yaml.Unmarshal(bytes, &data); err != nil {
+	data := newMessage[T]()
+	if err := yaml.Unmarshal(bytes, data); err != nil {
 		return *new(T), fmt.Errorf("unmarshal yaml: %w", err)
 	}
 
-	if err := deepcopy.Copy(s.cache, data); err != nil {
-		return *new(T), fmt.Errorf("copy to cache: %w", err)
-	}
+	s.cache = proto.Clone(data).(T)
 	s.lastLoad = info.ModTime()
 
 	return data, nil
@@ -97,4 +91,9 @@ func (s *File[_]) init() error {
 		return err
 	}
 	return nil
+}
+
+func newMessage[T proto.Message]() T {
+	var t T
+	return t.ProtoReflect().New().Interface().(T)
 }

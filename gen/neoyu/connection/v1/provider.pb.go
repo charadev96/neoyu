@@ -152,6 +152,50 @@ func (x *Provider) GetModel() string {
 	return ""
 }
 
+type ConnectionStore struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Providers     []*Provider            `protobuf:"bytes,1,rep,name=providers,proto3" json:"providers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConnectionStore) Reset() {
+	*x = ConnectionStore{}
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConnectionStore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConnectionStore) ProtoMessage() {}
+
+func (x *ConnectionStore) ProtoReflect() protoreflect.Message {
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConnectionStore.ProtoReflect.Descriptor instead.
+func (*ConnectionStore) Descriptor() ([]byte, []int) {
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ConnectionStore) GetProviders() []*Provider {
+	if x != nil {
+		return x.Providers
+	}
+	return nil
+}
+
 type ListProvidersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -160,7 +204,7 @@ type ListProvidersRequest struct {
 
 func (x *ListProvidersRequest) Reset() {
 	*x = ListProvidersRequest{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[1]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -172,7 +216,7 @@ func (x *ListProvidersRequest) String() string {
 func (*ListProvidersRequest) ProtoMessage() {}
 
 func (x *ListProvidersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[1]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -185,7 +229,7 @@ func (x *ListProvidersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProvidersRequest.ProtoReflect.Descriptor instead.
 func (*ListProvidersRequest) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{1}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{2}
 }
 
 type ListProvidersResponse struct {
@@ -197,7 +241,7 @@ type ListProvidersResponse struct {
 
 func (x *ListProvidersResponse) Reset() {
 	*x = ListProvidersResponse{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[2]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -209,7 +253,7 @@ func (x *ListProvidersResponse) String() string {
 func (*ListProvidersResponse) ProtoMessage() {}
 
 func (x *ListProvidersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[2]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -222,7 +266,7 @@ func (x *ListProvidersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProvidersResponse.ProtoReflect.Descriptor instead.
 func (*ListProvidersResponse) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{2}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ListProvidersResponse) GetProviders() []*Provider {
@@ -241,7 +285,7 @@ type GetProviderRequest struct {
 
 func (x *GetProviderRequest) Reset() {
 	*x = GetProviderRequest{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[3]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -253,7 +297,7 @@ func (x *GetProviderRequest) String() string {
 func (*GetProviderRequest) ProtoMessage() {}
 
 func (x *GetProviderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[3]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -266,7 +310,7 @@ func (x *GetProviderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProviderRequest.ProtoReflect.Descriptor instead.
 func (*GetProviderRequest) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{3}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetProviderRequest) GetId() string {
@@ -285,7 +329,7 @@ type GetProviderResponse struct {
 
 func (x *GetProviderResponse) Reset() {
 	*x = GetProviderResponse{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[4]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -297,7 +341,7 @@ func (x *GetProviderResponse) String() string {
 func (*GetProviderResponse) ProtoMessage() {}
 
 func (x *GetProviderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[4]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -310,7 +354,7 @@ func (x *GetProviderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProviderResponse.ProtoReflect.Descriptor instead.
 func (*GetProviderResponse) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{4}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetProviderResponse) GetProvider() *Provider {
@@ -329,7 +373,7 @@ type SetProviderRequest struct {
 
 func (x *SetProviderRequest) Reset() {
 	*x = SetProviderRequest{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[5]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -341,7 +385,7 @@ func (x *SetProviderRequest) String() string {
 func (*SetProviderRequest) ProtoMessage() {}
 
 func (x *SetProviderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[5]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -354,7 +398,7 @@ func (x *SetProviderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetProviderRequest.ProtoReflect.Descriptor instead.
 func (*SetProviderRequest) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{5}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SetProviderRequest) GetProvider() *Provider {
@@ -372,7 +416,7 @@ type SetProviderResponse struct {
 
 func (x *SetProviderResponse) Reset() {
 	*x = SetProviderResponse{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[6]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -384,7 +428,7 @@ func (x *SetProviderResponse) String() string {
 func (*SetProviderResponse) ProtoMessage() {}
 
 func (x *SetProviderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[6]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -397,7 +441,7 @@ func (x *SetProviderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetProviderResponse.ProtoReflect.Descriptor instead.
 func (*SetProviderResponse) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{6}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{7}
 }
 
 type DeleteProviderRequest struct {
@@ -409,7 +453,7 @@ type DeleteProviderRequest struct {
 
 func (x *DeleteProviderRequest) Reset() {
 	*x = DeleteProviderRequest{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[7]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -421,7 +465,7 @@ func (x *DeleteProviderRequest) String() string {
 func (*DeleteProviderRequest) ProtoMessage() {}
 
 func (x *DeleteProviderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[7]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -434,7 +478,7 @@ func (x *DeleteProviderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProviderRequest.ProtoReflect.Descriptor instead.
 func (*DeleteProviderRequest) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{7}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DeleteProviderRequest) GetId() string {
@@ -452,7 +496,7 @@ type DeleteProviderResponse struct {
 
 func (x *DeleteProviderResponse) Reset() {
 	*x = DeleteProviderResponse{}
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[8]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -464,7 +508,7 @@ func (x *DeleteProviderResponse) String() string {
 func (*DeleteProviderResponse) ProtoMessage() {}
 
 func (x *DeleteProviderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[8]
+	mi := &file_neoyu_connection_v1_provider_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -477,7 +521,7 @@ func (x *DeleteProviderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProviderResponse.ProtoReflect.Descriptor instead.
 func (*DeleteProviderResponse) Descriptor() ([]byte, []int) {
-	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{8}
+	return file_neoyu_connection_v1_provider_proto_rawDescGZIP(), []int{9}
 }
 
 var File_neoyu_connection_v1_provider_proto protoreflect.FileDescriptor
@@ -491,7 +535,9 @@ const file_neoyu_connection_v1_provider_proto_rawDesc = "" +
 	"\x04type\x18\x03 \x01(\x0e2!.neoyu.connection.v1.ProviderTypeR\x04type\x12&\n" +
 	"\bbase_url\x18\x04 \x01(\tB\v\xbaH\b\xd8\x01\x01r\x03\x88\x01\x01R\abaseUrl\x12\x17\n" +
 	"\aapi_key\x18\x05 \x01(\tR\x06apiKey\x12\x14\n" +
-	"\x05model\x18\x06 \x01(\tR\x05model\"\x16\n" +
+	"\x05model\x18\x06 \x01(\tR\x05model\"N\n" +
+	"\x0fConnectionStore\x12;\n" +
+	"\tproviders\x18\x01 \x03(\v2\x1d.neoyu.connection.v1.ProviderR\tproviders\"\x16\n" +
 	"\x14ListProvidersRequest\"T\n" +
 	"\x15ListProvidersResponse\x12;\n" +
 	"\tproviders\x18\x01 \x03(\v2\x1d.neoyu.connection.v1.ProviderR\tproviders\".\n" +
@@ -528,37 +574,39 @@ func file_neoyu_connection_v1_provider_proto_rawDescGZIP() []byte {
 }
 
 var file_neoyu_connection_v1_provider_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_neoyu_connection_v1_provider_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_neoyu_connection_v1_provider_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_neoyu_connection_v1_provider_proto_goTypes = []any{
 	(ProviderType)(0),              // 0: neoyu.connection.v1.ProviderType
 	(*Provider)(nil),               // 1: neoyu.connection.v1.Provider
-	(*ListProvidersRequest)(nil),   // 2: neoyu.connection.v1.ListProvidersRequest
-	(*ListProvidersResponse)(nil),  // 3: neoyu.connection.v1.ListProvidersResponse
-	(*GetProviderRequest)(nil),     // 4: neoyu.connection.v1.GetProviderRequest
-	(*GetProviderResponse)(nil),    // 5: neoyu.connection.v1.GetProviderResponse
-	(*SetProviderRequest)(nil),     // 6: neoyu.connection.v1.SetProviderRequest
-	(*SetProviderResponse)(nil),    // 7: neoyu.connection.v1.SetProviderResponse
-	(*DeleteProviderRequest)(nil),  // 8: neoyu.connection.v1.DeleteProviderRequest
-	(*DeleteProviderResponse)(nil), // 9: neoyu.connection.v1.DeleteProviderResponse
+	(*ConnectionStore)(nil),        // 2: neoyu.connection.v1.ConnectionStore
+	(*ListProvidersRequest)(nil),   // 3: neoyu.connection.v1.ListProvidersRequest
+	(*ListProvidersResponse)(nil),  // 4: neoyu.connection.v1.ListProvidersResponse
+	(*GetProviderRequest)(nil),     // 5: neoyu.connection.v1.GetProviderRequest
+	(*GetProviderResponse)(nil),    // 6: neoyu.connection.v1.GetProviderResponse
+	(*SetProviderRequest)(nil),     // 7: neoyu.connection.v1.SetProviderRequest
+	(*SetProviderResponse)(nil),    // 8: neoyu.connection.v1.SetProviderResponse
+	(*DeleteProviderRequest)(nil),  // 9: neoyu.connection.v1.DeleteProviderRequest
+	(*DeleteProviderResponse)(nil), // 10: neoyu.connection.v1.DeleteProviderResponse
 }
 var file_neoyu_connection_v1_provider_proto_depIdxs = []int32{
-	0, // 0: neoyu.connection.v1.Provider.type:type_name -> neoyu.connection.v1.ProviderType
-	1, // 1: neoyu.connection.v1.ListProvidersResponse.providers:type_name -> neoyu.connection.v1.Provider
-	1, // 2: neoyu.connection.v1.GetProviderResponse.provider:type_name -> neoyu.connection.v1.Provider
-	1, // 3: neoyu.connection.v1.SetProviderRequest.provider:type_name -> neoyu.connection.v1.Provider
-	2, // 4: neoyu.connection.v1.ProviderService.ListProviders:input_type -> neoyu.connection.v1.ListProvidersRequest
-	4, // 5: neoyu.connection.v1.ProviderService.GetProvider:input_type -> neoyu.connection.v1.GetProviderRequest
-	6, // 6: neoyu.connection.v1.ProviderService.SetProvider:input_type -> neoyu.connection.v1.SetProviderRequest
-	8, // 7: neoyu.connection.v1.ProviderService.DeleteProvider:input_type -> neoyu.connection.v1.DeleteProviderRequest
-	3, // 8: neoyu.connection.v1.ProviderService.ListProviders:output_type -> neoyu.connection.v1.ListProvidersResponse
-	5, // 9: neoyu.connection.v1.ProviderService.GetProvider:output_type -> neoyu.connection.v1.GetProviderResponse
-	7, // 10: neoyu.connection.v1.ProviderService.SetProvider:output_type -> neoyu.connection.v1.SetProviderResponse
-	9, // 11: neoyu.connection.v1.ProviderService.DeleteProvider:output_type -> neoyu.connection.v1.DeleteProviderResponse
-	8, // [8:12] is the sub-list for method output_type
-	4, // [4:8] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	0,  // 0: neoyu.connection.v1.Provider.type:type_name -> neoyu.connection.v1.ProviderType
+	1,  // 1: neoyu.connection.v1.ConnectionStore.providers:type_name -> neoyu.connection.v1.Provider
+	1,  // 2: neoyu.connection.v1.ListProvidersResponse.providers:type_name -> neoyu.connection.v1.Provider
+	1,  // 3: neoyu.connection.v1.GetProviderResponse.provider:type_name -> neoyu.connection.v1.Provider
+	1,  // 4: neoyu.connection.v1.SetProviderRequest.provider:type_name -> neoyu.connection.v1.Provider
+	3,  // 5: neoyu.connection.v1.ProviderService.ListProviders:input_type -> neoyu.connection.v1.ListProvidersRequest
+	5,  // 6: neoyu.connection.v1.ProviderService.GetProvider:input_type -> neoyu.connection.v1.GetProviderRequest
+	7,  // 7: neoyu.connection.v1.ProviderService.SetProvider:input_type -> neoyu.connection.v1.SetProviderRequest
+	9,  // 8: neoyu.connection.v1.ProviderService.DeleteProvider:input_type -> neoyu.connection.v1.DeleteProviderRequest
+	4,  // 9: neoyu.connection.v1.ProviderService.ListProviders:output_type -> neoyu.connection.v1.ListProvidersResponse
+	6,  // 10: neoyu.connection.v1.ProviderService.GetProvider:output_type -> neoyu.connection.v1.GetProviderResponse
+	8,  // 11: neoyu.connection.v1.ProviderService.SetProvider:output_type -> neoyu.connection.v1.SetProviderResponse
+	10, // 12: neoyu.connection.v1.ProviderService.DeleteProvider:output_type -> neoyu.connection.v1.DeleteProviderResponse
+	9,  // [9:13] is the sub-list for method output_type
+	5,  // [5:9] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_neoyu_connection_v1_provider_proto_init() }
@@ -572,7 +620,7 @@ func file_neoyu_connection_v1_provider_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_neoyu_connection_v1_provider_proto_rawDesc), len(file_neoyu_connection_v1_provider_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

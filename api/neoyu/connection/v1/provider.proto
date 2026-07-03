@@ -21,6 +21,10 @@ message Provider {
   string model = 6;
 }
 
+message ConnectionStore {
+  repeated Provider providers = 1;
+}
+
 service ProviderService {
   rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
   rpc GetProvider(GetProviderRequest) returns (GetProviderResponse);

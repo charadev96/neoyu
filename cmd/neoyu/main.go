@@ -3,10 +3,10 @@ package main
 import (
 	"embed"
 
+	connectionv1 "github.com/charadev96/neoyu/gen/neoyu/connection/v1"
 	"github.com/charadev96/neoyu/internal/db"
 	"github.com/charadev96/neoyu/internal/middleware"
 	"github.com/charadev96/neoyu/internal/server"
-	"github.com/charadev96/neoyu/internal/service"
 )
 
 //go:embed all:dist/*
@@ -17,7 +17,7 @@ func main() {
 	log := middleware.NewConsoleLogger()
 
 	svr := server.New(dist, server.DB{
-		Connections: db.NewFile[service.ProviderSchema]("data/connections.yaml"),
+		Connection: db.NewFile[*connectionv1.ConnectionStore]("data/connections.yaml"),
 	})
 
 	log.Info().
