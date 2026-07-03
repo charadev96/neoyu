@@ -110,7 +110,12 @@ func (s *Dir[_]) Delete(id uuid.UUID) error {
 		return fmt.Errorf("ensure store: %w", err)
 	}
 
+	if err := os.Remove(s.recordPath(id)); err != nil {
+		return fmt.Errorf("remove: %w", err)
+	}
+
 	delete(s.records, id)
+
 	return nil
 }
 
